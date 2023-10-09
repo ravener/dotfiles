@@ -1,0 +1,90 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    // "width": 1280, // Waybar width
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces"],
+    "modules-center": ["custom/music"],
+    "modules-right": ["pulseaudio", "battery", "memory", "custom/vnstat", "network", "clock", "tray", "custom/lock", "custom/power"],
+    "memory": {
+      "format": "󰍛  {used:0.1f}G/{total:0.1f}G"
+    },
+    "network": {
+      "interface": "wlp12s0",
+      "interval": 1,
+      "min-length": 13,
+      "format": "󰜮 {bandwidthDownBits:>5} 󰜷 {bandwidthUpBits:>5}",
+      "format-icons": ["󰤯", "󰤟", "󰤢", "󰤨"],
+      "tooltip-format": "{icon}  {essid} ({ifname}) ({signalStrength}%)",
+      "format-disconnected": ""
+    },
+    "sway/workspaces": {
+         "sort-by-name": true,
+         "format": " {icon} ",
+         "format-icons": {
+             "default": "",
+             "focused": "",
+         },
+     },
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+    },
+    "custom/music": {
+        "format": "  {}",
+        "escape": true,
+        "interval": 5,
+        "tooltip": false,
+        "exec": "playerctl metadata --format='{{ title }}'",
+        "on-click": "playerctl play-pause",
+        "max-length": 50
+    },
+    "custom/vnstat": {
+      "format": "  {}",
+      "tooltip": false,
+      "interval": 60,
+      "min-length": 12,
+      "exec": "/home/ravener/scripts/data.sh"
+    },
+    "clock": {
+        "timezone": "Asia/Kabul",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": " {:%d/%m/%Y}",
+        "format": " {:%l:%M %p}"
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-charging": "",
+        "format-plugged": "",
+        "format-alt": "{icon}",
+        "format-icons": ["", "",  "", "", "", "", "", "", "", "", "", ""]
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "default": ["", "", " "]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/lock": {
+        "tooltip": false,
+        "on-click": "swaylock -i /home/ravener/wallpaper.png",
+        "format": "",
+    },
+    "custom/power": {
+        "tooltip": false,
+        "on-click": "wlogout &",
+        "format": "⏻"
+    }
+}
